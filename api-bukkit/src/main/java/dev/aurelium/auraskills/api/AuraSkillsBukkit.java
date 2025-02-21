@@ -10,6 +10,7 @@ import dev.aurelium.auraskills.api.region.Regions;
  */
 public interface AuraSkillsBukkit {
 
+
     /**
      * Gets the region manager for checking and adding placed blocks.
      *
@@ -48,5 +49,7 @@ public interface AuraSkillsBukkit {
     static AuraSkillsBukkit get() {
         return AuraSkillsBukkitProvider.getInstance();
     }
+
+
 
 }

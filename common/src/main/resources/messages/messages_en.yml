@@ -337,29 +337,29 @@ commands:
   armor:
     modifier:
       add:
-        added: "{color}{stat} <gray>modifier with level <aqua>{value} <gray>was added to your item"
-        already_exists: "<yellow>An armor modifier with stat {color}{stat} <yellow>already exists on your armor! Remove it first with /sk armor modifier remove"
+        added: "Modifier <white>{name} for {color}{stat}<reset> <gray> with level <aqua>{value} <gray>was added to your item"
+        already_exists: "<yellow>An armor modifier for {color}{stat}<reset><yellow> with name <white>{name} <yellow>already exists on your armor! Remove it first with /sk armor modifier remove"
       remove:
-        does_not_exist: "<yellow>Your item does not have a {color}{stat} <yellow>modifier!"
-        removed: "{color}{stat} <gray>modifier was removed from your item"
+        does_not_exist: "<yellow>Your item does not have a modifier named <white>{name} <yellow>!"
+        removed: "<white>{name} <gray>modifier for {color}{stat}<reset><gray> was removed from your item"
       list:
         header: "<white>Armor modifiers found:"
       removeall:
         removed: "<gray>All armor modifiers have been removed from your item"
     trait:
       add:
-        already_exists: "<yellow>An armor modifier with trait {trait} <yellow>already exists on your item! Remove it first with /sk armor trait remove"
+        already_exists: "<yellow>An armor modifier with name <white>{name} <yellow>and trait {trait} <yellow>already exists on your item! Remove it first with /sk armor trait remove"
     multiplier:
       add:
-        added: "<aqua>{target} <gray>multiplier with value <aqua>{value} <gray>was added to your item"
-        already_exists: "<yellow>An armor multiplier with target <aqua>{target} <yellow>already exists on your armor! Remove it first with /sk armor multiplier remove"
+        added: "Multiplier <white>{name} for<aqua>{target} <gray> with value <aqua>{value} <gray>was added to your item"
+        already_exists: "<yellow>An armor multiplier with target <aqua>{target}<yellow> and name <white>{name} <yellow>already exists on your armor! Remove it first with /sk armor modifier remove"
         skill_lore: "<gray>When worn: <aqua>+{value}% {skill} XP"
         skill_lore_subtract: "<gray>When worn: <aqua>-{value}% {skill} XP"
         global_lore: "<gray>When worn: <blue>+{value}% Skill XP"
         global_lore_subtract: "<gray>When worn: <blue>-{value}% Skill XP"
       remove:
-        does_not_exist: "<yellow>Your item does not have a <aqua>{target} <yellow>armor multiplier!"
-        removed: "<aqua>{target} <gray>armor multiplier was removed from your item"
+        does_not_exist: "<yellow>Your item does not have a armor multiplier named <white>{name for }<aqua>{target} <yellow>!"
+        removed: "<white>{name} <gray>armor multiplier for <aqua>{target} was removed from your item"
       list:
         header: "<white>Armor multipliers found:"
       removeall:
@@ -397,29 +397,30 @@ commands:
       receiver: "<white>You were given <aqua>{amount}x {key}"
     modifier:
       add:
-        added: "{color}{stat} <gray>modifier with level <aqua>{value} <gray>was added to your item"
-        already_exists: "<yellow>An item modifier with stat {color}{stat} <yellow>already exists on your item! Remove it first with /sk item modifier remove"
+        added: "Modifier <white>{name} for {color}{stat}<reset> <gray> with level <aqua>{value} <gray>was added to your item"
+        already_exists: "<yellow>An item modifier for {color}{stat}<reset><yellow> with name <white>{name} <yellow>already exists on your item! Remove it first with /sk item modifier remove"
       remove:
-        does_not_exist: "<yellow>Your item does not have a {color}{stat} <yellow>modifier!"
-        removed: "{color}{stat} <gray>modifier was removed from your item"
+        does_not_exist: "<yellow>Your item does not have a modifier named <white>{name} for the stat {color}{stat}<yellow>!"
+        removed: "<white>{name} <gray>modifier for {color}{stat}<reset><gray> was removed from your item"
+
       list:
         header: "<white>Item modifiers found:"
       removeall:
         removed: "<gray>All item modifiers have been removed from your item"
     trait:
       add:
-        already_exists: "<yellow>An item modifier with trait {trait} <yellow>already exists on your item! Remove it first with /sk item trait remove"
+        already_exists: "<yellow>An item modifier with name <white>{name} <yellow>and trait {trait} <yellow>already exists on your item! Remove it first with /sk item trait remove"
     multiplier:
       add:
-        added: "<aqua>{target} <gray>multiplier with value <aqua>{value} <gray>was added to your item"
-        already_exists: "<yellow>An item multiplier with target <aqua>{target} <yellow>already exists on your item! Remove it first with /sk item multiplier remove"
+        added: "Multiplier <white>{name} for<aqua>{target} <gray> with value <aqua>{value} <gray>was added to your item"
+        already_exists: "<yellow>An item multiplier with target <aqua>{target}<yellow> and name <white>{name} <yellow>already exists on your item! Remove it first with /sk item modifier remove"
         skill_lore: "<gray>When held: <aqua>+{value}% {skill} XP"
         skill_lore_subtract: "<gray>When held: <aqua>-{value}% {skill} XP"
         global_lore: "<gray>When held: <blue>+{value}% Skill XP"
         global_lore_subtract: "<gray>When held: <blue>-{value}% Skill XP"
       remove:
         does_not_exist: "<yellow>Your item does not have a <aqua>{target} <yellow>item multiplier!"
-        removed: "<aqua>{target} <gray>item multiplier was removed from your item"
+        removed: "<white>{name} <gray>item multiplier for <aqua>{target} was removed from your item"
       list:
         header: "<white>Item multipliers found:"
       removeall:

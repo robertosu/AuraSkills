@@ -3,14 +3,14 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
     `java-library`
-    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
     id("io.papermc.hangar-publish-plugin") version "0.1.2"
     id("com.modrinth.minotaur") version "2.+"
 }
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -29,6 +29,7 @@ repositories {
     maven("https://mvn.lumine.io/repository/maven-public/")
     maven("https://maven.enginehub.org/repo/")
     maven("https://repo.oraxen.com/releases")
+    maven("https://repo.papermc.io/repository/maven-public/")
 }
 
 dependencies {
@@ -41,6 +42,7 @@ dependencies {
     implementation("net.kyori:adventure-platform-bukkit:4.3.3")
     compileOnly("org.jetbrains:annotations:24.1.0")
     compileOnly("org.spigotmc:spigot-api:1.21.1-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.6")
     compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.0.5") {
         exclude("org.spigotmc", "spigot-api")
@@ -60,7 +62,7 @@ dependencies {
 }
 
 val compiler = javaToolchains.compilerFor {
-    languageVersion = JavaLanguageVersion.of(17)
+    languageVersion = JavaLanguageVersion.of(21)
 }
 
 tasks {

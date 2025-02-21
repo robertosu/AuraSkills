@@ -1,5 +1,6 @@
 package dev.aurelium.auraskills.common.trait;
 
+import dev.aurelium.auraskills.api.stat.Stat;
 import dev.aurelium.auraskills.api.trait.Trait;
 import dev.aurelium.auraskills.api.trait.TraitProvider;
 import dev.aurelium.auraskills.common.message.MessageProvider;
@@ -39,6 +40,7 @@ public class TraitSupplier extends OptionSupplier<Trait> implements TraitProvide
     public String getMenuDisplay(Trait trait, double value, Locale locale) {
         return traitManager.getMenuDisplay(trait, value, locale);
     }
+
 
     @Override
     public OptionProvider getOptions(Trait type) {

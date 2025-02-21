@@ -81,19 +81,21 @@ public class StatFormat {
                 .replace("{player}", player.getName()));
     }
 
-    public String applyPlaceholders(String input, Stat stat, double value, Locale locale) {
+    public String applyPlaceholders(String input, Stat stat, String name, double value, Locale locale) {
         return provider.applyFormatting(input.replace("{color}", stat.getColor(locale))
                 .replace("{symbol}", stat.getSymbol(locale))
                 .replace("{stat}", stat.getDisplayName(locale, false))
-                .replace("{value}", NumberUtil.format1(value)));
+                .replace("{value}", NumberUtil.format1(value))
+                .replace("{name}",name));
     }
 
-    public String applyPlaceholders(String input, Trait trait, double value, Locale locale) {
+    public String applyPlaceholders(String input, Trait trait, String name, double value, Locale locale) {
         Stat stat = plugin.getTraitManager().getLinkedStats(trait).stream().findFirst().orElse(null);
         return provider.applyFormatting(input.replace("{color}", stat != null ? stat.getColor(locale) : "")
                 .replace("{symbol}", "")
                 .replace("{stat}", trait.getDisplayName(locale, false))
-                .replace("{value}", NumberUtil.format1(value)));
+                .replace("{value}", NumberUtil.format1(value))
+                .replace("{name}", name));
     }
 
     public String applyPlaceholders(String input, Stat stat, Locale locale) {
@@ -102,12 +104,21 @@ public class StatFormat {
                 .replace("{stat}", stat.getDisplayName(locale, false)));
     }
 
-    public String applyPlaceholders(String input, Trait trait, Locale locale) {
+    public String applyPlaceholders(String input, Stat stat, String name, Locale locale) {
+        return provider.applyFormatting(input.replace("{color}", stat.getColor(locale))
+                .replace("{symbol}", stat.getSymbol(locale))
+                .replace("{stat}", stat.getDisplayName(locale, false))
+                .replace("{name}",name));
+    }
+
+
+    public String applyPlaceholders(String input, Trait trait, String name, Locale locale) {
         Stat stat = plugin.getTraitManager().getLinkedStats(trait).stream().findFirst().orElse(null);
         return provider.applyFormatting(input.replace("{color}", stat != null ? stat.getColor(locale) : "")
                 .replace("{symbol}", "")
                 .replace("{stat}", trait.getDisplayName(locale, false))
-                .replace("{trait}", trait.getDisplayName(locale, false)));
+                .replace("{trait}", trait.getDisplayName(locale, false))
+                .replace("{name}",name));
     }
 
     public String applyPlaceholders(String input, String name, Player player) {

@@ -7,19 +7,28 @@ import dev.aurelium.auraskills.api.skill.Skills;
 import dev.aurelium.auraskills.api.stat.Stat;
 import dev.aurelium.auraskills.api.stat.StatModifier;
 import dev.aurelium.auraskills.api.stat.Stats;
-import dev.aurelium.auraskills.api.trait.Trait;
-import dev.aurelium.auraskills.api.trait.TraitModifier;
-import dev.aurelium.auraskills.api.trait.Traits;
+import dev.aurelium.auraskills.api.trait.*;
 import org.bukkit.inventory.ItemStack;
 import org.spongepowered.configurate.ConfigurationNode;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * An interface used to add modifiers to items and parse items from configuration.
  */
 public interface ItemManager {
+
+
+
+
+    List<StatModifier> getOriginalStatModifiers(ItemStack item, ModifierType type);
+
+    List<StatModifier> getStatModifiersByName(ItemStack item, ModifierType type, String name);
+
+
+
 
     /**
      * Adds a stat modifier to an item, with optional lore. This does not change the item passed in directly,
@@ -29,11 +38,12 @@ public interface ItemManager {
      * @param item the original item, will not be changed by the method
      * @param type the {@link ModifierType} to add
      * @param stat the stat to add (Use {@link Stats} enum for default stats)
+     * @param name a name, used as ID of this modifier
      * @param value the value of the stat to add
      * @param lore whether to add lore
      * @return a new ItemStack with the static modifier
      */
-    ItemStack addStatModifier(ItemStack item, ModifierType type, Stat stat, double value, boolean lore);
+    ItemStack addStatModifier(ItemStack item, ModifierType type, Stat stat, String name, double value, boolean lore);
 
     /**
      * Adds a trait modifier to an item, with optional lore. This does not change the item passed in directly,
@@ -42,17 +52,18 @@ public interface ItemManager {
      * @param item the original item
      * @param type the {@link ModifierType} to add
      * @param trait the trait to add (Use {@link Traits} enum for default stats)
+     * @param name a name, used as ID of this modifier
      * @param value the value of the trait to add
      * @param lore whether to add lore
      * @return a new ItemStack with the trait modifier
      */
-    ItemStack addTraitModifier(ItemStack item, ModifierType type, Trait trait, double value, boolean lore);
+    ItemStack addTraitModifier(ItemStack item, ModifierType type, Trait trait, String name, double value, boolean lore);
 
     /**
-     * @deprecated use {@link #addStatModifier(ItemStack, ModifierType, Stat, double, boolean)}
+     * @deprecated use {@link #addStatModifier(ItemStack, ModifierType, Stat, String, double, boolean)}
      */
     @Deprecated
-    ItemStack addModifier(ItemStack item, ModifierType type, Stat stat, double value, boolean lore);
+    ItemStack addModifier(ItemStack item, ModifierType type, Stat stat, String name, double value, boolean lore);
 
     /**
      * Gets a list of stat modifiers on an item for a given modifier type.
@@ -86,9 +97,11 @@ public interface ItemManager {
      * @param item The item to remove the modifier from. Does not get modified.
      * @param type the modifier type
      * @param stat the stat of the modifier to remove
+     * @param name a name, used as ID of this modifier
+     * @param lore if the will be removed
      * @return the item with the modifier removed
      */
-    ItemStack removeStatModifier(ItemStack item, ModifierType type, Stat stat);
+    ItemStack removeStatModifier(ItemStack item, ModifierType type, Stat stat, String name, boolean lore);
 
     /**
      * Removes a trait modifier from an item for a given modifier type and stat.
@@ -98,15 +111,17 @@ public interface ItemManager {
      * @param item The item to remove the modifier from. Does not get modified.
      * @param type the modifier type
      * @param trait the trait of the modifier to remove
+     * @param name the name of the modifier to remove
+     * @param lore if the will be removed
      * @return the item with the modifier removed
      */
-    ItemStack removeTraitModifier(ItemStack item, ModifierType type, Trait trait);
+    ItemStack removeTraitModifier(ItemStack item, ModifierType type, Trait trait, String name, boolean lore);
 
     /**
-     * @deprecated use {@link #removeStatModifier(ItemStack, ModifierType, Stat)}
+     * @deprecated use {@link #removeStatModifier(ItemStack, ModifierType, Stat, String, boolean)}
      */
     @Deprecated
-    ItemStack removeModifier(ItemStack item, ModifierType type, Stat stat);
+    ItemStack removeModifier(ItemStack item, ModifierType type, Stat stat, String name);
 
     /**
      * Adds a multiplier to an item, with optional lore. This does not change the item passed in directly,
@@ -116,11 +131,12 @@ public interface ItemManager {
      * @param item the original item, will not be changed by the method
      * @param type the {@link ModifierType} to add
      * @param skill the skill to add (Use {@link Skills} enum for default skills)
+     * @param name the name of the modifier to remove
      * @param value the value of the multiplier (in percentage points) to add
      * @param lore whether to add lore
      * @return a new ItemStack with the multiplier
      */
-    ItemStack addMultiplier(ItemStack item, ModifierType type, Skill skill, double value, boolean lore);
+    ItemStack addMultiplier(ItemStack item, ModifierType type, Skill skill, String name, double value, boolean lore);
 
     /**
      * Gets a list of skill multipliers on an item for a given modifier type.
@@ -138,9 +154,11 @@ public interface ItemManager {
      * @param item item to remove the multiplier from
      * @param type the type of modifier
      * @param skill the skill of the multiplier to remove, or null for global multipliers
+     * @param name the name of the multiplier to remove
+     * @param lore if the lore line is removed
      * @return the modified item with the multiplier removed
      */
-    ItemStack removeMultiplier(ItemStack item, ModifierType type, Skill skill);
+    ItemStack removeMultiplier(ItemStack item, ModifierType type, Skill skill, String name, boolean lore);
 
     /**
      * Adds a skill requirement to use an item, with optional lore. This does not change the item passed in
@@ -219,4 +237,99 @@ public interface ItemManager {
     @Deprecated
     List<ItemStack> parseMultipleItems(ConfigurationNode config);
 
+
+    /**
+     * @deprecated Use {@link #addStatModifier(ItemStack, ModifierType, Stat, String, double, boolean)}
+     * Adds a stat modifier to an item with a default name, maintaining backward compatibility.
+     *
+     * @param item the original item
+     * @param type the {@link ModifierType} to add
+     * @param stat the stat to add (Use {@link Stats} enum for default stats)
+     * @param value the value of the stat to add
+     * @param lore whether to add lore
+     * @return a new ItemStack with the static modifier
+     */
+    @Deprecated
+    default ItemStack addStatModifier(ItemStack item, ModifierType type, Stat stat, double value, boolean lore) {
+        return addStatModifier(item, type, stat, "default", value, lore);
+    }
+
+    /**
+     * @deprecated Use {@link #addTraitModifier(ItemStack, ModifierType, Trait, String, double, boolean)}
+     * Adds a trait modifier to an item with a default name, maintaining backward compatibility.
+     *
+     * @param item the original item
+     * @param type the {@link ModifierType} to add
+     * @param trait the trait to add (Use {@link Traits} enum for default traits)
+     * @param value the value of the trait to add
+     * @param lore whether to add lore
+     * @return a new ItemStack with the trait modifier
+     */
+    @Deprecated
+    default ItemStack addTraitModifier(ItemStack item, ModifierType type, Trait trait, double value, boolean lore) {
+        return addTraitModifier(item, type, trait, "default", value, lore);
+    }
+
+    /**
+     * @deprecated Use {@link #removeStatModifier(ItemStack, ModifierType, Stat, String, boolean)}
+     * Removes a stat modifier from an item with a default name, maintaining backward compatibility.
+     *
+     * @param item The item to remove the modifier from
+     * @param type the modifier type
+     * @param stat the stat of the modifier to remove
+     * @return the item with the modifier and his lore line removed
+     */
+    @Deprecated
+    default ItemStack removeStatModifier(ItemStack item, ModifierType type, Stat stat) {
+        return removeStatModifier(item, type, stat, "default", false);
+    }
+
+    /**
+     * @deprecated Use {@link #removeTraitModifier(ItemStack, ModifierType, Trait, String, boolean)}
+     * Removes a trait modifier from an item with a default name, maintaining backward compatibility.
+     *
+     * @param item The item to remove the modifier from
+     * @param type the modifier type
+     * @param trait the trait of the modifier to remove
+     * @return the item with the modifier removed and his lore line removed
+     */
+    @Deprecated
+    default ItemStack removeTraitModifier(ItemStack item, ModifierType type, Trait trait) {
+        return removeTraitModifier(item, type, trait, "default", false);
+    }
+
+    /**
+     * @deprecated Use {@link #addMultiplier(ItemStack, ModifierType, Skill, String, double, boolean)}
+     * Adds a multiplier to an item with a default name, maintaining backward compatibility.
+     *
+     * @param item the original item
+     * @param type the {@link ModifierType} to add
+     * @param skill the skill to add (Use {@link Skills} enum for default skills)
+     * @param value the value of the multiplier (in percentage points) to add
+     * @param lore whether to add lore
+     * @return a new ItemStack with the multiplier
+     */
+    @Deprecated
+    default ItemStack addMultiplier(ItemStack item, ModifierType type, Skill skill, double value, boolean lore) {
+        return addMultiplier(item, type, skill, "default", value, lore);
+    }
+
+    /**
+     * @deprecated Use {@link #removeMultiplier(ItemStack, ModifierType, Skill, String, boolean)}
+     * Removes a multiplier from an item with a default name, maintaining backward compatibility.
+     *
+     * @param item item to remove the multiplier from
+     * @param type the type of modifier
+     * @param skill the skill of the multiplier to remove
+     * @return the modified item with the multiplier removed
+     */
+    @Deprecated
+    default ItemStack removeMultiplier(ItemStack item, ModifierType type, Skill skill) {
+        return removeMultiplier(item, type, skill, "default", false);
+    }
+
+    Set<Stat> getLinkedStats(Trait trait);
+
+
+    String getFormattedTraitValue (double value, Trait trait);
 }

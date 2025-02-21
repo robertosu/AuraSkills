@@ -7,6 +7,7 @@ plugins {
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
     maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
@@ -49,22 +50,9 @@ java {
     sourceCompatibility = JavaVersion.VERSION_1_8
 }
 
-if (project.hasProperty("sonatypeUsername") && project.hasProperty("sonatypePassword")) {
-    publishing {
-        repositories {
-            maven {
-                val releasesRepoUrl = URI.create("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-                val snapshotsRepoUrl = URI.create("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-                url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
-
-                credentials {
-                    username = project.property("sonatypeUsername").toString()
-                    password = project.property("sonatypePassword").toString()
-                }
-            }
-        }
-
-        publications.create<MavenPublication>("mavenJava") {
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
             groupId = "dev.aurelium"
             artifactId = "auraskills-api-bukkit"
             version = project.version.toString()
@@ -79,14 +67,6 @@ if (project.hasProperty("sonatypeUsername") && project.hasProperty("sonatypePass
                         url.set("https://www.gnu.org/licenses/gpl-3.0.en.html")
                     }
                 }
-                developers {
-                    developer {
-                        id.set(project.property("developerId").toString())
-                        name.set(project.property("developerUsername").toString())
-                        email.set(project.property("developerEmail").toString())
-                        url.set(project.property("developerUrl").toString())
-                    }
-                }
                 scm {
                     connection.set("scm:git:git://github.com/Archy-X/AuraSkills.git")
                     developerConnection.set("scm:git:git://github.com/Archy-X/AuraSkills.git")
@@ -95,6 +75,27 @@ if (project.hasProperty("sonatypeUsername") && project.hasProperty("sonatypePass
             }
 
             from(components["java"])
+        }
+    }
+
+    repositories {
+        mavenLocal()
+    }
+}
+
+if (project.hasProperty("sonatypeUsername") && project.hasProperty("sonatypePassword")) {
+    publishing {
+        repositories {
+            maven {
+                val releasesRepoUrl = URI.create("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+                val snapshotsRepoUrl = URI.create("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+                url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+
+                credentials {
+                    username = project.property("sonatypeUsername").toString()
+                    password = project.property("sonatypePassword").toString()
+                }
+            }
         }
     }
 

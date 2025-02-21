@@ -9,6 +9,7 @@ import dev.aurelium.auraskills.bukkit.AuraSkills;
 import dev.aurelium.auraskills.bukkit.api.implementation.ApiLocationManager;
 import dev.aurelium.auraskills.bukkit.api.implementation.ApiMenuManager;
 import dev.aurelium.auraskills.bukkit.api.implementation.ApiRegions;
+import dev.aurelium.auraskills.common.trait.TraitManager;
 
 public class ApiAuraSkillsBukkit implements AuraSkillsBukkit {
 
@@ -33,7 +34,6 @@ public class ApiAuraSkillsBukkit implements AuraSkillsBukkit {
     public ItemManager getItemManager() {
         return itemManager;
     }
-
     @Override
     public LocationManager getLocationManager() {
         return locationManager;

@@ -2,10 +2,14 @@ package dev.aurelium.auraskills.bukkit.trait;
 
 import dev.aurelium.auraskills.api.trait.Trait;
 import dev.aurelium.auraskills.api.user.SkillsUser;
+import dev.aurelium.auraskills.api.util.NumberUtil;
 import dev.aurelium.auraskills.bukkit.AuraSkills;
 import dev.aurelium.auraskills.api.bukkit.BukkitTraitHandler;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Locale;
 
 public abstract class TraitImpl implements BukkitTraitHandler, Listener {
 
@@ -30,5 +34,4 @@ public abstract class TraitImpl implements BukkitTraitHandler, Listener {
     protected void reload(Player player, Trait trait) {
 
     }
-
 }
