@@ -10,11 +10,13 @@ import dev.aurelium.auraskills.bukkit.user.BukkitUser;
 import dev.aurelium.auraskills.common.modifier.ModifierManager;
 import dev.aurelium.auraskills.common.user.User;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class BukkitModifierManager implements ModifierManager {
@@ -26,6 +28,7 @@ public class BukkitModifierManager implements ModifierManager {
     }
 
     public void reloadPlayer(Player player) {
+        double actualHealth = player.getHealth();
         User user = plugin.getUser(player);
         
         Set<Stat> statsToReload = new HashSet<>();
@@ -102,6 +105,7 @@ public class BukkitModifierManager implements ModifierManager {
         for (Stat stat : statsToReload) {
             plugin.getStatManager().reloadStat(user, stat);
         }
+        player.setHealth(Math.min(actualHealth, Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue()));
     }
 
     @Override

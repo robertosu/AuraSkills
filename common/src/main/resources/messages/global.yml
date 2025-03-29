@@ -32,10 +32,10 @@ commands:
         lore: "<gray>{stat}: {color}+{value}"
         lore_subtract: "<gray>{stat}: {color}-{value}"
       list:
-        entry: "  {color}{stat}<white> - {value}"
+        entry: "<white>{name} - {color}{stat}<gray><white> - {value}"
     multiplier:
       list:
-        entry: "  <aqua>{target}<white> - {value}"
+        entry: "<white>{name} - <aqua>{target}<gray><white> - {value}"
     requirement:
       list:
         entry: "  <dark_aqua>{skill} <white>- <aqua>{level}"
@@ -46,10 +46,10 @@ commands:
         lore: "<gray>{stat}: {color}+{value}"
         lore_subtract: "<gray>{stat}: {color}-{value}"
       list:
-        entry: "  {color}{stat}<white> - {value}"
+        entry: "<white>{name} - {color}{stat}<gray><white> - {value}"
     multiplier:
       list:
-        entry: "  <aqua>{target}<white> - {value}"
+        entry: "<white>{name} - <aqua>{target}<gray><white> - {value}"
     requirement:
       list:
         entry: "  <dark_aqua>{skill} <white>- <aqua>{level}"

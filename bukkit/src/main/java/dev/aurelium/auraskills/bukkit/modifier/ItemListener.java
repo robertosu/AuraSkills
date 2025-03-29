@@ -237,7 +237,7 @@ public class ItemListener implements Listener {
         Set<Trait> traitsToReload = new HashSet<>();
         Set<String> offHandMultipliers = new HashSet<>();
         // Check offhand item
-        if (itemOffHand != null && itemOffHand.getType() != Material.AIR) {
+        if (itemOffHand.getType() != Material.AIR) {
             SkillsItem skillsItem = new SkillsItem(itemOffHand, plugin);
             boolean meetsRequirements = skillsItem.meetsRequirements(ModifierType.ITEM, player); // Get whether player meets requirements
             // For each modifier on the item
@@ -274,7 +274,7 @@ public class ItemListener implements Listener {
             }
         }
         // Check main hand item
-        if (itemMainHand != null && itemMainHand.getType() != Material.AIR) {
+        if (itemMainHand.getType() != Material.AIR) {
             SkillsItem skillsItem = new SkillsItem(itemMainHand, plugin);
             boolean meetsRequirements = skillsItem.meetsRequirements(ModifierType.ITEM, player); // Get whether player meets requirements
             // For each modifier on the item

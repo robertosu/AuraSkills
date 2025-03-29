@@ -9,8 +9,7 @@ import dev.aurelium.auraskills.bukkit.ability.AbilityImpl;
 import dev.aurelium.auraskills.bukkit.util.CompatUtil;
 import dev.aurelium.auraskills.common.user.User;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
@@ -50,8 +49,28 @@ public class DefenseAbilities extends AbilityImpl {
 
         if (failsChecks(player, ability)) return DamageModifier.none();
 
-        // TODO: Shouldn't this affect projectile damage from skeletons/ghasts etc?
+        // Melee damage, also contemplates creeper explosion damage
         if (meta.getAttacker() instanceof LivingEntity && !(meta.getAttacker() instanceof Player)) {
+            if (user.getAbilityLevel(ability) <= 0) return DamageModifier.none();
+
+            double damageReduction = 1 - (getValue(ability, user) / 100);
+
+            return new DamageModifier(damageReduction - 1, DamageModifier.Operation.MULTIPLY);
+        }
+
+        // Projectile damage
+        if (meta.getAttacker() instanceof Projectile projectile) {
+            if (projectile.getShooter() instanceof LivingEntity entity && !(entity instanceof Player)) {
+                if (user.getAbilityLevel(ability) <= 0) return DamageModifier.none();
+
+                double damageReduction = 1 - (getValue(ability, user) / 100);
+
+                return new DamageModifier(damageReduction - 1, DamageModifier.Operation.MULTIPLY);
+            }
+        }
+
+        // Dragon breath damage
+        if (meta.getAttacker() instanceof AreaEffectCloud aec && aec.getSource() instanceof EnderDragon) {
             if (user.getAbilityLevel(ability) <= 0) return DamageModifier.none();
 
             double damageReduction = 1 - (getValue(ability, user) / 100);

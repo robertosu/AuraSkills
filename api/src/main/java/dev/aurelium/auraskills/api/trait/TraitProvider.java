@@ -1,6 +1,7 @@
 package dev.aurelium.auraskills.api.trait;
 
 import dev.aurelium.auraskills.api.option.OptionedProvider;
+import dev.aurelium.auraskills.api.stat.Stat;
 
 import java.util.Locale;
 
@@ -11,5 +12,6 @@ public interface TraitProvider extends OptionedProvider<Trait> {
     String getDisplayName(Trait trait, Locale locale, boolean formatted);
 
     String getMenuDisplay(Trait trait, double value, Locale locale);
+
 
 }

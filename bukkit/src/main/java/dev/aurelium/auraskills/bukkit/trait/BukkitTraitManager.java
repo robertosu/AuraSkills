@@ -1,6 +1,7 @@
 package dev.aurelium.auraskills.bukkit.trait;
 
 import dev.aurelium.auraskills.api.bukkit.BukkitTraitHandler;
+import dev.aurelium.auraskills.api.stat.Stat;
 import dev.aurelium.auraskills.api.trait.Trait;
 import dev.aurelium.auraskills.api.trait.TraitHandler;
 import dev.aurelium.auraskills.api.util.NumberUtil;
@@ -16,6 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 public class BukkitTraitManager extends TraitManager {
 
@@ -71,6 +73,8 @@ public class BukkitTraitManager extends TraitManager {
         return null;
     }
 
+
+
     @Override
     public double getBaseLevel(User user, Trait trait) {
         Player player = ((BukkitUser) user).getPlayer();
@@ -99,5 +103,10 @@ public class BukkitTraitManager extends TraitManager {
         } else {
             return NumberUtil.format1(value);
         }
+    }
+
+    @Override
+    public Set<Stat> getLinkedStats(Trait trait) {
+        return super.getLinkedStats(trait);
     }
 }
